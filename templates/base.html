@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{% block title %}{% endblock %}</title>
+  </head>
+  <body>
+    {% block header %}
+    <header>
+      <nav>
+        <li><a href="{% url 'repair:service_list' %}">Main</a></li>
+        {% if user.is_authenticated %}
+        <form id="logout-form" method="post" action="{% url 'auth:logout' %}">
+          {% csrf_token %}
+          <label>
+            Logged in as {{ user.username }}
+            <button type="submit" class="btn btn-link">Logout</button>
+          </label>
+        {% else %}
+      </nav>
+    </header>
+    {% endblock %}
+    <!--  -->
+    {% block content %} {% endblock %}
+    <!--  -->
+    {% block footer %} {% endblock %}
+  </body>
+</html>
