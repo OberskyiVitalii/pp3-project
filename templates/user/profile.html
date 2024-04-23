@@ -1,0 +1,60 @@
+{% extends "base.html" %}
+<!---->
+{% block title %}Profile Page | {{ user.first_name }}{% endblock title %}
+<!---->
+{% block content %}
+<h1>User profile | {{ user.first_name }} {{ user.last_name }}</h1>
+<div class="user_info">
+  <p class="user_info_username">Username: {{ user.username }}</p>
+  <p class="user_info_firstname">First name: {{ user.first_name }}</p>
+  <p class="user_info_lastname">Last name: {{ user.last_name }}</p>
+</div>
+<div>
+  {% if devices %}
+  <h1>Device list</h1>
+  <ul class="user_device_list">
+    {% for device in devices %}
+    <li class="user_device_list_item">
+      <p class="user_device_name">{{ device.name }}</p>
+      <p class="user_device_brand_and_model">
+        {{ device.brand }} {{ device.model }}
+      </p>
+      <div class="device_control_panel">
+        <button>
+          <a href="{% url 'repair:delete_device' device.id %}">Delete device</a>
+        </button>
+        <button>
+          <a href="{% url 'repair:edit_device' device.id %}">Edit device</a>
+        </button>
+      </div>
+    </li>
+    {% endfor %}
+  </ul>
+  {% else %}
+  <p>Your history is empty</p>
+  {% endif %}
+  <button><a href="{% url 'repair:add_device' %}">Add device</a></button>
+</div>
+<div>
+  {% if repair_orders %}
+  <h1>Repair Orders</h1>
+  <ul class="repair_order_list">
+    {% for order in repair_orders %}
+    <li class="repair_order_list_item">
+      <p>Device: {{ order.device }}</p>
+      <p>Service Center: {{ order.service_center }}</p>
+      <p>Status: {{ order.status }}</p>
+      <p>Services:</p>
+      <ul>
+        {% for service in order.services.all %}
+        <li>{{ service.name }}</li>
+        {% endfor %}
+      </ul>
+    </li>
+    {% endfor %}
+  </ul>
+  {% else %}
+  <p>No repair orders yet</p>
+  {% endif %}
+</div>
+{% endblock content %}

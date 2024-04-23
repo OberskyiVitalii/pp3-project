@@ -1,0 +1,74 @@
+{% extends 'base.html' %}
+<!---->
+{% block title %}Repair service{% endblock title %}
+<!---->
+{% block content %}
+<!---->
+<div class="">
+  <button>
+    <a href="{% url 'repair:order_service' %}">Submit a repair request</a>
+  </button>
+</div>
+<h1>Service list</h1>
+{% if user.is_authenticated and user.is_staff %}
+<button><a href="{% url 'repair:create_service' %}">Add service</a></button>
+{% endif %}
+<!---->
+{% if services %}
+<ul class="service_list">
+  {% for service in services %}
+  <li class="service_item">
+    <a href="{% url 'repair:detail_service' service.id %}" class="service_name">
+      {{ service.name }}
+    </a>
+    <span class="service_price">{{ service.price }} $</span>
+  </li>
+  {% endfor %}
+</ul>
+{% else %}
+<p>Services list is clear</p>
+{% endif %}
+<div class="service_center">
+  <h1 class="service_center_title">Service center list</h1>
+  {% if user.is_authenticated and user.is_staff %}
+  <button>
+    <a href="{% url 'repair:create_service_center' %}">Add service</a>
+  </button>
+  {% endif %}
+  <!---->
+  {% if service_centers %}
+  <ul class="service_center_list">
+    {% for service_center in service_centers %}
+    <li class="service_center_list_item">
+      <p class="service_center_list_item_text">
+        Address: <span>{{ service_center.address }}</span>
+      </p>
+      <p class="service_center_list_item_text">
+        Phone number: <span>{{ service_center.phone_number }}</span>
+      </p>
+      <p class="service_center_list_item_text">
+        Work time: <span>{{ service_center.work_time }}</span>
+      </p>
+      {% if user.is_authenticated and user.is_staff %}
+      <div class="contrl_panel_service_center">
+        <button>
+          <a href="{% url 'repair:delete_service_center' service_center.id %}">
+            Delete service center
+          </a>
+        </button>
+        <button>
+          <a href="{% url 'repair:edit_service_center' service_center.id %}">
+            Edit service center
+          </a>
+        </button>
+      </div>
+      {% endif %}
+    </li>
+    {% endfor %}
+  </ul>
+  {% else %}
+  <p>No service centers</p>
+  {% endif %}
+</div>
+<!-- -->
+{% endblock content %}

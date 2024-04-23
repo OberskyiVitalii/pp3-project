@@ -1,32 +1,5 @@
 from django.db import models
-from django.contrib.auth.models import AbstractUser
-
-class CustomUser(AbstractUser):
-    phone_number = models.CharField(max_length=15)
-    address = models.CharField(max_length=255)
-
-    
-    groups = models.ManyToManyField(
-        'auth.Group',
-        blank=True,
-        related_name='custom_user_groups',
-        verbose_name='groups',
-        help_text='The groups this user belongs to. A user will get all permissions granted to each of their groups.',
-    )
-
-    user_permissions = models.ManyToManyField(
-        'auth.Permission',
-        blank=True,
-        related_name='custom_user_permissions',
-        verbose_name='user permissions',
-        help_text='Specific permissions for this user.',
-    )
-
-    class Meta:
-        app_label = 'repair_service'
-
-    def __str__(self):
-        return self.username
+from django.contrib.auth import get_user_model
 
 
 class Service(models.Model):
@@ -39,27 +12,12 @@ class Service(models.Model):
 
 
 class Device(models.Model):
-    user = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
-    name = models.CharField(max_length=100)
+    user = models.ForeignKey(get_user_model(), on_delete=models.CASCADE, default=0)
     brand = models.CharField(max_length=50)
     model = models.CharField(max_length=50)
 
     def __str__(self):
         return f"{self.brand} {self.model}"
-
-
-class RepairTech(models.Model):
-    device = models.ForeignKey(Device, on_delete=models.CASCADE)
-    issue_description = models.TextField()
-    repair_status = models.CharField(
-        max_length=50,
-        choices=[('pending', 'Pending'), ('in_progress', 'In Progress'), ('completed', 'Completed')],
-        default='pending'
-    )
-    repair_date = models.DateTimeField(auto_now_add=True)
-
-    def __str__(self):
-        return f"{self.device} - {self.repair_status}"
 
 
 class SparePart(models.Model):
@@ -70,3 +28,24 @@ class SparePart(models.Model):
 
     def __str__(self):
         return self.name
+
+
+class ServiceCenter(models.Model):
+    address = models.CharField(max_length=200)
+    phone_number = models.CharField(max_length=15, unique=True)
+    work_time = models.CharField(max_length=30)
+
+    def __str__(self):
+        return self.address
+    
+
+class RepairOrder(models.Model):
+    user = models.ForeignKey(get_user_model(), on_delete=models.CASCADE)
+    device = models.ForeignKey(Device, on_delete=models.CASCADE)
+    service_center = models.ForeignKey(ServiceCenter, on_delete=models.CASCADE)
+    services = models.ManyToManyField(Service)
+    status = models.CharField(max_length=50, default='Pending')
+    created_at = models.DateTimeField(auto_now_add=True)
+    
+    def __str__(self):
+        return f"Order for {self.device} at {self.service_center}"

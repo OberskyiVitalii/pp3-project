@@ -1,29 +1,68 @@
+{% load static %}
+
 <!DOCTYPE html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>{% block title %}{% endblock %}</title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}" />
+    <link rel="stylesheet" href="{% static 'css/header.css' %}" />
+
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0"
+    />
   </head>
   <body>
-    {% block header %}
     <header>
+      {% block header %}
+      <div></div>
       <nav>
-        <li><a href="{% url 'repair:service_list' %}">Main</a></li>
-        {% if user.is_authenticated %}
-        <form id="logout-form" method="post" action="{% url 'auth:logout' %}">
-          {% csrf_token %}
-          <label>
-            Logged in as {{ user.username }}
-            <button type="submit" class="btn btn-link">Logout</button>
-          </label>
-        {% else %}
+        <li><a href="{% url 'repair:home_page' %}">Main</a></li>
+        <li><a href="{% url 'repair:add_device' %}">Add device</a></li>
+        <li><a href="{% url 'repair:order_service' %}">Order service</a></li>
+        <li><a href="{% url 'repair:profile' %}">Profile</a></li>
       </nav>
+      <div class="auth_panel">
+        {% if user.is_authenticated %}
+        <form method="post" action="{% url 'auth:logout' %}">
+          {% csrf_token %}
+          <li>
+            <span>
+              You logged by
+              <a href="{% url 'repair:profile' %}">{{ user.first_name }}</a>
+            </span>
+
+            <button type="submit" class="auth_btn btn_logout">Logout</button>
+            <button class="btn_admin">
+              <a href="/admin">Admin panel</a>
+            </button>
+          </li>
+          {% if user.is_staff %}
+          <li></li>
+          {% endif %}
+          <!---->
+          {% else %}
+          <li>
+            <button class="auth_btn btn_login">
+              <a href="{% url 'auth:login' %}">Log in</a>
+            </button>
+          </li>
+          <li>
+            <button class="auth_btn btn_signup">
+              <a href="{% url 'auth:signup' %}">Sign up</a>
+            </button>
+          </li>
+          <!-- -->
+          {% endif %}
+        </form>
+      </div>
+      {% endblock %}
     </header>
-    {% endblock %}
     <!--  -->
-    {% block content %} {% endblock %}
+    <main>{% block content %} {% endblock %}</main>
     <!--  -->
-    {% block footer %} {% endblock %}
+    <footer>{% block footer %} {% endblock %}</footer>
   </body>
 </html>

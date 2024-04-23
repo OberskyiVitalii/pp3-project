@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+<!---->
+{% block title %}Repair service | {{ service.name }}{% endblock title %}
+<!---->
+{% block content %}
+<div class="service_detail">
+  {% if error_message %}
+  <p class="error_message">{{ error_message }}</p>
+  {% endif %}
+  <!---->
+  <p class="service_detail_name">{{service.name}}</p>
+  <p class="service_detail_description">{{service.description}}</p>
+  <p class="service_detail_price">{{service.price}}$</p>
+</div>
+<div class="control_service">
+  {% if user.is_authenticated and user.is_staff %}
+  <button>
+    <a href="{% url 'repair:delete_service' service.id %}">Delete service</a>
+  </button>
+  <button>
+    <a href="{% url 'repair:edit_service' service.id %}">Edit service</a>
+  </button>
+  {% endif %}
+</div>
+{% endblock content %}

@@ -1,0 +1,42 @@
+header {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 80px;
+  height: 60px;
+  background: var(--color-header-bg);
+}
+
+header > div {
+  display: flex;
+  align-items: center;
+}
+
+header.dark {
+  background: var(--color-bg);
+}
+
+nav {
+  display: flex;
+}
+
+nav > li {
+  margin: 0 20px;
+}
+
+nav a {
+  font-size: 18px;
+  font-weight: 700;
+  color: #212121;
+}
+
+.auth_panel > * {
+  margin: 0 10px;
+}
+
+.auth_panel .auth_btn {
+  border-radius: 6px;
+  width: 100px;
+  padding: 5px;
+}
