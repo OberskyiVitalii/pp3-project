@@ -3,8 +3,8 @@
 {% block title %}Edit service{% endblock title %}
 <!---->
 {% block content %}
-<h1>Edit service</h1>
-<form method="post">
+<h1 class="title service_title">Edit service</h1>
+<form method="post" class="form service_form">
   {% csrf_token %}
   <!---->
   {{ form.as_p }}

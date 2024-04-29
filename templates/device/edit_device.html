@@ -3,8 +3,8 @@
 {% block title %}Edit device{% endblock title %}
 <!---->
 {% block content %}
-<h1>Edit device</h1>
-<form method="post">
+<h1 class="title device_title">Edit device</h1>
+<form method="post" class="form device_form">
   {% csrf_token %}
   <!---->
   {{ form.as_p }}

@@ -1,12 +1,6 @@
 from django import forms
-from .models import Device, Service, ServiceCenter
+from .models import Device, Service, ServiceCenter, RepairOrder
 from django.contrib.auth.models import User
-
-
-class DeviceForm(forms.ModelForm):
-    class Meta:
-        model = Device
-        fields = ['brand', 'model']
 
 
 class ServiceForm(forms.ModelForm):
@@ -24,10 +18,16 @@ class ServiceCenterForm(forms.ModelForm):
 class DeviceForm(forms.ModelForm):
     class Meta:
         model = Device
-        fields = ['brand', 'model']
+        fields = ['brand', 'model', 'cpu', 'gpu', 'ram']
 
 
 class UserProfileForm(forms.ModelForm):
     class Meta:
         model = User
         fields = ['first_name', 'last_name']
+
+
+class StatusForm(forms.ModelForm):
+    class Meta:
+        model = RepairOrder
+        fields = ['status']

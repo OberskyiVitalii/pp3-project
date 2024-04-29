@@ -5,17 +5,19 @@
 {% block content %}
 <!---->
 {% if devices %}
-<form method="post">
+<form method="post" class="form service_form device_form">
   {% csrf_token %}
-  <h1>Choose your device</h1>
-  <select name="device">
-    {% for device in devices %}
-    <option value="{{ device.id }}">
-      {{ device.brand }} {{ device.model }}
-    </option>
-    {% endfor %}
-  </select>
-  <div>
+  <div class="service_order_div service_order_device">
+    <h1>Choose your device</h1>
+    <select name="device">
+      {% for device in devices %}
+      <option value="{{ device.id }}">
+        {{ device.brand }} {{ device.model }}
+      </option>
+      {% endfor %}
+    </select>
+  </div>
+  <div class="service_order_div service_order_service_center">
     <h1>Choose service center</h1>
     {% if service_centers %}
     <!---->
@@ -28,7 +30,7 @@
     <!---->
     {% endif %}
   </div>
-  <div>
+  <div class="service_order_div service_order_service">
     <h1>Choose repair service</h1>
     {% if services %}
     <ul>

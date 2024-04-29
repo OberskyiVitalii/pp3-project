@@ -3,8 +3,10 @@
 {% block title %}Delete service{% endblock title %}
 <!---->
 {% block content %}
-<h1>Are you sure you want to delete "{{ service.name }}"?</h1>
-<form method="post">
+<h1 class="title service_title">
+  Are you sure you want to delete "{{ service.name }}"?
+</h1>
+<form method="post" class="form delete_form service_form">
   {% csrf_token %}
   <button type="submit">Yes, delete</button>
 </form>

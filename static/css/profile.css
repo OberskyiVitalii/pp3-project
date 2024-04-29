@@ -1,0 +1,41 @@
+.profile {
+  width: 100%;
+  font-size: var(--main-font-size);
+  padding: 5px;
+}
+
+.profile > div,
+.profile > ul {
+  padding: 15px;
+}
+
+.profile > button {
+  font-size: var(--main-font-size);
+  font-weight: 600;
+  padding: 10px 0;
+  background: var(--btn-bg-add);
+  border-radius: 10px;
+  border: 2px solid var(--btn-bg-add-hover);
+  transition: background 0.2s ease-in, box-shadow 0.3s ease-in-out;
+}
+
+.profile > button > a {
+  padding: 10px 55px;
+  background: transparent;
+  color: #222;
+  outline: none;
+  transition: color 0.05s ease;
+}
+
+.profile > button > a:hover,
+.profile > button > a:focus,
+.profile > button:hover,
+.profile > button:focus {
+  color: #fff;
+  background: var(--btn-bg-add-hover);
+  box-shadow: 0 0 10px var(--btn-bg-add-hover);
+}
+
+.profile > ul > li {
+  padding: 10px;
+}

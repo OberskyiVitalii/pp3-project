@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect, get_object_or_404
-from .models import Service, Device, SparePart, ServiceCenter, RepairOrder
-from .forms import DeviceForm, ServiceForm, ServiceCenterForm, UserProfileForm
+from .models import Service, Device, ServiceCenter, RepairOrder
+from .forms import DeviceForm, ServiceForm, ServiceCenterForm, UserProfileForm, StatusForm
 from django.contrib.auth.decorators import login_required
 
 
@@ -17,13 +17,32 @@ def detail_service(request, service_id):
     return render(request, 'repair_service/service_detail.html', context)
 
 
+def orders_page(request):
+    orders = RepairOrder.objects.all()
+    context = {'orders': orders}
+    return render(request, 'service_center/orders_page.html', context)
+
+
+@login_required
+def order_detail(request, order_id):
+    order = get_object_or_404(RepairOrder, pk=order_id)
+    if request.method == 'POST':
+        form = StatusForm(request.POST, instance=order)
+        if form.is_valid():
+            form.save()
+            return redirect('repair:order_detail', order_id=order_id)
+    else:
+        form = StatusForm()
+    return render(request, 'service_center/order_detail.html', {'order': order, 'form': form})
+
+
 @login_required
 def create_service(request):
     if request.method == 'POST':
         form = ServiceForm(request.POST)
         if form.is_valid():
-            form.save()
-            return redirect('repair:home_page')
+            service = form.save()
+            return redirect('repair:detail_service', service_id = service.id)
     else:
         form = ServiceForm()
     
@@ -110,25 +129,30 @@ def order_service(request):
         device_id = request.POST.get('device')
         service_center_id = request.POST.get('choice')
         services_ids = request.POST.getlist('repair_service')
+        
         device = Device.objects.get(id=device_id)
         service_center = ServiceCenter.objects.get(id=service_center_id)
         services = Service.objects.filter(id__in=services_ids)
+
         repair_order = RepairOrder.objects.create(
             user=request.user,
             device=device,
-            service_center=service_center,
-            status='Pending'
+            service_center=service_center
         )
+
         repair_order.services.set(services)
+        
         return redirect('repair:profile')
+
     else:
         devices = Device.objects.filter(user=request.user)
         service_centers = ServiceCenter.objects.all()
         services = Service.objects.all()
+        
         context = {
             'devices': devices,
             'service_centers': service_centers,
-            'services': services,
+            'services': services
         }
 
         return render(request, 'repair_service/order_service.html', context)
@@ -184,7 +208,4 @@ def update_profile(request):
     else:
         form = UserProfileForm(instance=user)
     
-    context = {
-        'form': form,
-    }
-    return render(request, 'repair_service/update_profile.html', context)
+    return render(request, 'user/update_profile.html', {'form': form})

@@ -3,11 +3,11 @@
 {% block title %}Add device{% endblock title %}
 <!---->
 {% block content %}
-<form method="post">
+<h1 class="title">Add device</h1>
+<form method="post" class="form device_form">
   {% csrf_token %}
   <!---->
   {{form.as_p}}
-  <!-- <input type="submit" value="Add device" /> -->
   <button type="submit">Add device</button>
 </form>
 {% endblock content %}

@@ -1,0 +1,133 @@
+:root {
+  --input-device-bg: #c7c8cc;
+  --input-device-bg-focus: #b4b4b8;
+
+  --btn-device-bg: #929aab;
+  --btn-device-bg-hover: #393e46;
+}
+
+/* == form == */
+
+.form {
+  font-size: var(--main-font-size);
+  margin-top: 30px;
+}
+
+.form p {
+  width: 350px;
+  padding: 10px 0;
+  font-weight: 700;
+}
+
+.form > p > input,
+.form > p > textarea {
+  width: 100%;
+  padding: 10px 20px;
+  font-size: var(--main-font-size);
+  background: var(--input-device-bg);
+  border-radius: 10px;
+  border: 2px solid #222;
+  transition: background 0.3s ease-out;
+  font-weight: 400;
+  resize: none;
+}
+
+.form > p > input:focus {
+  background: var(--input-device-bg-focus);
+}
+
+.form > button,
+.form > input {
+  background: var(--btn-device-bg);
+  font-size: var(--main-font-size);
+  padding: 10px;
+  width: 100%;
+  margin-top: 40px;
+  font-weight: 700;
+  border-radius: 10px;
+  border: 2px solid var(--btn-device-bg-hover);
+  transition: all 0.3s ease-in-out;
+}
+
+.form > button:hover,
+.form > button:focus {
+  background: var(--btn-device-bg-hover);
+  box-shadow: 0 0 8px var(--btn-device-bg-hover);
+  color: #fff;
+}
+
+.form > ul > li {
+  width: 350px;
+}
+
+.form > select {
+  width: 100%;
+  padding: 10px;
+  font-size: 18px;
+}
+
+.title {
+  margin-top: 20px;
+}
+
+.delete_form {
+  margin: 0;
+}
+
+/* == form == */
+
+/* == service == */
+
+.service_form > div {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  padding: 10px;
+}
+
+.service_form > div > h1 {
+  padding: 8px;
+}
+
+.service_order_device > select {
+  width: 50%;
+  font-size: 16px;
+}
+
+/* == service == */
+
+/* == profile == */
+
+.profile_form {
+  display: flex;
+  flex-direction: column;
+}
+
+.profile_form > div {
+  display: flex;
+  flex-direction: column;
+}
+
+.profile_form > div > input {
+  width: 300px;
+}
+
+/* == profile == */
+
+/* == auth == */
+
+.form_register > ul > li {
+  font-size: 18px;
+  width: 300px;
+}
+
+/* == auth == */
+
+/* == order == */
+
+.status_form > input {
+  margin-top: 10px;
+}
+
+/* == order == */

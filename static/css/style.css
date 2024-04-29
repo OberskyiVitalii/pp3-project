@@ -4,12 +4,25 @@
   padding: 0;
   margin: 0;
   box-sizing: border-box;
-  font-family: "Roboto", sans-serif;
+}
+
+:root {
+  --color-bg: #eeedeb;
+  --color-bg-header: #dddddd;
+  --main-font-size: 20px;
+  --list-font-size: 20px;
 }
 
 body {
+  font-family: "Roboto", sans-serif;
   background: var(--color-bg);
   width: 100vw;
+  overflow-x: hidden;
+}
+
+textarea {
+  font-family: "Roboto", sans-serif;
+  font-weight: 400;
 }
 
 li {
@@ -27,4 +40,12 @@ button[type="submit"] {
 
 input[type="submit"] {
   cursor: pointer;
+}
+
+main,
+main > div {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
 }

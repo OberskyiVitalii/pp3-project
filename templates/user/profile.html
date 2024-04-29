@@ -3,27 +3,36 @@
 {% block title %}Profile Page | {{ user.first_name }}{% endblock title %}
 <!---->
 {% block content %}
-<h1>User profile | {{ user.first_name }} {{ user.last_name }}</h1>
-<div class="user_info">
-  <p class="user_info_username">Username: {{ user.username }}</p>
-  <p class="user_info_firstname">First name: {{ user.first_name }}</p>
-  <p class="user_info_lastname">Last name: {{ user.last_name }}</p>
+<div class="profile user_info">
+  <h1 class="title">
+    User profile | {{ user.first_name }} {{ user.last_name }}
+  </h1>
+  <div>
+    <p class="user_info_username">Username: {{ user.username }}</p>
+    <p class="user_info_firstname">First name: {{ user.first_name }}</p>
+    <p class="user_info_lastname">Last name: {{ user.last_name }}</p>
+  </div>
+  <button>
+    <a href="{% url 'repair:update_profile' %}">Update name</a>
+  </button>
 </div>
-<div>
+<div class="profile">
+  <h1 class="title">Device list</h1>
   {% if devices %}
-  <h1>Device list</h1>
   <ul class="user_device_list">
     {% for device in devices %}
     <li class="user_device_list_item">
-      <p class="user_device_name">{{ device.name }}</p>
       <p class="user_device_brand_and_model">
         {{ device.brand }} {{ device.model }}
       </p>
-      <div class="device_control_panel">
-        <button>
+      <p class="user_device_info">CPU: {{ device.cpu }}</p>
+      <p class="user_device_info">GPU: {{ device.gpu }}</p>
+      <p class="user_device_info">RAM: {{ device.ram }}</p>
+      <div class="control_panel device_control_panel">
+        <button class="btn_control_panel btn_delete_control_panel">
           <a href="{% url 'repair:delete_device' device.id %}">Delete device</a>
         </button>
-        <button>
+        <button class="btn_control_panel btn_edit_control_panel">
           <a href="{% url 'repair:edit_device' device.id %}">Edit device</a>
         </button>
       </div>
@@ -35,26 +44,34 @@
   {% endif %}
   <button><a href="{% url 'repair:add_device' %}">Add device</a></button>
 </div>
-<div>
+<div class="profile">
+  <h1 class="title">Repair Orders</h1>
   {% if repair_orders %}
-  <h1>Repair Orders</h1>
   <ul class="repair_order_list">
     {% for order in repair_orders %}
     <li class="repair_order_list_item">
       <p>Device: {{ order.device }}</p>
       <p>Service Center: {{ order.service_center }}</p>
       <p>Status: {{ order.status }}</p>
-      <p>Services:</p>
-      <ul>
-        {% for service in order.services.all %}
-        <li>{{ service.name }}</li>
+      <p>
+        Services: {% for service in order.services.all %}
+        <!---->
+        {{ service.name }}
+        <!---->
+        {% if not forloop.last %},
+        <!---->
+        {% endif %}
+        <!---->
         {% endfor %}
-      </ul>
+      </p>
     </li>
     {% endfor %}
   </ul>
   {% else %}
   <p>No repair orders yet</p>
+  <button>
+    <a href="{% url 'repair:order_service' %}">Submit a repair request</a>
+  </button>
   {% endif %}
 </div>
 {% endblock content %}
