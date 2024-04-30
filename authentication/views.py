@@ -22,7 +22,7 @@ def register_view(request):
             user = form.save(commit=False)
             user.username = form.cleaned_data.get('username')
             user.email = form.cleaned_data.get('email')
-            user.password = form.cleaned_data.get('password1')
+            user.password1 = user.set_password(form.cleaned_data.get('password1'))
             user.first_name = form.cleaned_data.get('first_name')
             user.last_name = form.cleaned_data.get('last_name')
             

@@ -2,6 +2,8 @@ from django.shortcuts import render, redirect, get_object_or_404
 from .models import Service, Device, ServiceCenter, RepairOrder
 from .forms import DeviceForm, ServiceForm, ServiceCenterForm, UserProfileForm, StatusForm
 from django.contrib.auth.decorators import login_required
+from django.contrib.admin.views.decorators import staff_member_required
+
 
 
 def home_page(request):
@@ -24,6 +26,7 @@ def orders_page(request):
 
 
 @login_required
+@staff_member_required
 def order_detail(request, order_id):
     order = get_object_or_404(RepairOrder, pk=order_id)
     if request.method == 'POST':
@@ -37,6 +40,7 @@ def order_detail(request, order_id):
 
 
 @login_required
+@staff_member_required
 def create_service(request):
     if request.method == 'POST':
         form = ServiceForm(request.POST)
@@ -50,6 +54,7 @@ def create_service(request):
     
 
 @login_required
+@staff_member_required
 def delete_service(request, service_id):
     service = get_object_or_404(Service, pk=service_id)
     if request.method == 'POST':
@@ -60,6 +65,7 @@ def delete_service(request, service_id):
 
 
 @login_required
+@staff_member_required
 def edit_service(request, service_id):
     service = get_object_or_404(Service, pk=service_id)
     if request.method == 'POST':
@@ -74,6 +80,7 @@ def edit_service(request, service_id):
 
 
 @login_required
+@staff_member_required
 def create_service_center(request):
     if request.method == 'POST':
         form = ServiceCenterForm(request.POST)
@@ -87,6 +94,7 @@ def create_service_center(request):
 
 
 @login_required
+@staff_member_required
 def delete_service_center(request, service_center_id):
     service_center = get_object_or_404(ServiceCenter, id=service_center_id)
     if request.method == 'POST':
@@ -97,6 +105,7 @@ def delete_service_center(request, service_center_id):
 
 
 @login_required
+@staff_member_required
 def edit_service_center(request, service_center_id):
     service_center = get_object_or_404(ServiceCenter, id=service_center_id)
     if request.method == 'POST':
@@ -176,9 +185,10 @@ def add_device(request):
 @login_required
 def delete_device(request, device_id):
     device = get_object_or_404(Device, pk=device_id)
-    if request.method == 'POST':
-        device.delete()
-        return redirect('repair:profile')
+    if request.user == device.user:
+        if request.method == 'POST':
+            device.delete()
+            return redirect('repair:profile')
 
     return render(request, 'device/delete_device.html', {'device': device})    
 
@@ -186,13 +196,14 @@ def delete_device(request, device_id):
 @login_required
 def edit_device(request, device_id):
     device = get_object_or_404(Device, pk=device_id)
-    if request.method == 'POST':
-        form = DeviceForm(request.POST, instance=device)
-        if form.is_valid():
-            form.save()
-            return redirect('repair:profile')
-    else:
-        form = DeviceForm(instance=device)
+    if request.user == device.user:
+        if request.method == 'POST':
+            form = DeviceForm(request.POST, instance=device)
+            if form.is_valid():
+                form.save()
+                return redirect('repair:profile')
+        else:
+            form = DeviceForm(instance=device)
 
     return render(request, 'device/edit_device.html', {'form': form})
 

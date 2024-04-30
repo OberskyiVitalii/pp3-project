@@ -59,13 +59,12 @@
             </span>
 
             <button type="submit" class="auth_btn btn_logout">Logout</button>
+            {% if user.is_staff %}
             <button class="btn_admin">
               <a href="/admin">Admin panel</a>
             </button>
+            {% endif %}
           </li>
-          {% if user.is_staff %}
-          <li></li>
-          {% endif %}
           <!---->
           {% else %}
           <li>
