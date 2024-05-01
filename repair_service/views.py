@@ -1,7 +1,6 @@
-from django.http import HttpResponse, HttpResponseBadRequest
 from django.shortcuts import render, redirect, get_object_or_404
 from .models import Service, Device, ServiceCenter, RepairOrder
-from .forms import DeviceForm, ServiceForm, ServiceCenterForm, UserProfileForm, StatusForm, OrderServiceForm
+from .forms import DeviceForm, ServiceForm, ServiceCenterForm, UserProfileForm, StatusForm
 from django.contrib.auth.decorators import login_required
 from django.contrib.admin.views.decorators import staff_member_required
 
