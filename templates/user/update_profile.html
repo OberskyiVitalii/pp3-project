@@ -3,12 +3,14 @@
 {% block title %}Update Profile{% endblock title %}
 <!---->
 {% block content %}
-<h1 class="title">Update Profile</h1>
-<form method="post" class="form profile_form">
-  {% csrf_token %}
-  <!---->
-  {{form.as_p}}
-  <!---->
-  <button type="submit">Update Profile</button>
-</form>
+<div class="update profile-update">
+  <h1 class="title">Update Profile</h1>
+  <form method="post" class="form profile-form">
+    {% csrf_token %}
+    <!---->
+    {{form.as_p}}
+    <!---->
+    <button type="submit">Update Profile</button>
+  </form>
+</div>
 {% endblock content %}

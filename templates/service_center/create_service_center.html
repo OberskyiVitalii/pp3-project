@@ -3,11 +3,13 @@
 {% block title %}Create service center{% endblock title %}
 <!---->
 {% block content %}
-<h1 class="title">Create new service center</h1>
-<form method="post" class="form">
-  {% csrf_token %}
-  <!---->
-  {{ form.as_p }}
-  <button type="submit">Create service center</button>
-</form>
+<div class="create-element create-service-center">
+  <h1 class="title">Create new service center</h1>
+  <form method="post" class="form">
+    {% csrf_token %}
+    <!---->
+    {{ form.as_p }}
+    <button type="submit">Create service center</button>
+  </form>
+</div>
 {% endblock content %}

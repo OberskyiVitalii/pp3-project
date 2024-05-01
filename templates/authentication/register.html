@@ -3,17 +3,20 @@
 {% block title %}Create an Account{% endblock %}
 <!--  -->
 {% block content %}
-<form method="POST" class="form form_register">
-  {% csrf_token %}
-  <!--  -->
-  {{ form.as_p }}
-  <input type="submit" value="Register" />
-</form>
+<div class="auth-page register-page">
+  <form method="POST" class="form form-register">
+    {% csrf_token %}
+    <!--  -->
+    {{ form.as_p }}
+    <input type="submit" value="Register" />
+  </form>
 
-<div class="create_account">
-  <p>Have an account?</p>
-  <button>
-    <a href="{% url 'auth:login' %}">Login instead</a>
-  </button>
+  <div class="create-account">
+    <p>Have an account?</p>
+    <a class="auth-btn btn-login" href="{% url 'auth:login' %}">
+      Login instead
+    </a>
+  </div>
 </div>
+
 {% endblock %}

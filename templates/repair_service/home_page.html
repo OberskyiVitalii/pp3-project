@@ -6,86 +6,85 @@
 <!---->
 {% block content %}
 <!---->
-<div class="make_order">
-  <div class="make_order_left"></div>
-  <div class="make_order_right">
-    <h1 class="title main_page_title">REPAIR SERVICE</h1>
-    <button>
-      <a href="{% url 'repair:order_service' %}">Submit a repair request</a>
-    </button>
+<div class="home-page">
+  <div class="home-page-element make-order">
+    <h1 class="title main-page-title">Repair service</h1>
+    <a class="btn" href="{% url 'repair:order_service' %}">
+      Submit a repair request
+    </a>
   </div>
-</div>
-<div class="services">
-  <h1 class="title main_page_title">Service list</h1>
-  {% if user.is_authenticated and user.is_staff %}
-  <button class="btn_add btn_add_service">
-    <a class="btn_add_link" href="{% url 'repair:create_service' %}"
-      >Add service</a
+  <div class="home-page-element services">
+    <h1 class="title main-page-title">Service list</h1>
+    {% if user.is_authenticated and user.is_staff %}
+    <a class="btn-add btn-add-service" href="{% url 'repair:create_service' %}">
+      Add service
+    </a>
+    {% endif %}
+    <!---->
+    {% if services %}
+    <ul class="service-list">
+      {% for service in services %}
+      <li class="service-item">
+        <a
+          href="{% url 'repair:detail_service' service.id %}"
+          class="service-name"
+        >
+          {{ service.name }}
+        </a>
+        <span class="service-price">{{ service.price }} $</span>
+      </li>
+      {% endfor %}
+    </ul>
+    {% else %}
+    <p>Services list is clear</p>
+    {% endif %}
+  </div>
+  <div class="home-page-element service-center">
+    <h1 class="title main-page-title">Service center list</h1>
+    {% if user.is_authenticated and user.is_staff %}
+    <a
+      class="btn-add btn-add-service-center"
+      href="{% url 'repair:create_service_center' %}"
     >
-  </button>
-  {% endif %}
-  <!---->
-  {% if services %}
-  <ul class="service_list">
-    {% for service in services %}
-    <li class="service_item">
-      <a
-        href="{% url 'repair:detail_service' service.id %}"
-        class="service_name"
-      >
-        {{ service.name }}
-      </a>
-      <span class="service_price">{{ service.price }} $</span>
-    </li>
-    {% endfor %}
-  </ul>
-  {% else %}
-  <p>Services list is clear</p>
-  {% endif %}
-</div>
-<div class="service_center">
-  <h1 class="title main_page_title">Service center list</h1>
-  {% if user.is_authenticated and user.is_staff %}
-  <button class="btn_add btn_add_service_center">
-    <a class="btn_add_link" href="{% url 'repair:create_service_center' %}">
-      Add service center</a
-    >
-  </button>
-  {% endif %}
-  <!---->
-  {% if service_centers %}
-  <ul class="service_center_list">
-    {% for service_center in service_centers %}
-    <li class="service_center_list_item">
-      <p class="service_center_list_item_text">
-        Address: <span>{{ service_center.address }}</span>
-      </p>
-      <p class="service_center_list_item_text">
-        Phone number: <span>{{ service_center.phone_number }}</span>
-      </p>
-      <p class="service_center_list_item_text">
-        Work time: <span>{{ service_center.work_time }}</span>
-      </p>
-      {% if user.is_authenticated and user.is_staff %}
-      <div class="control_panel control_panel_service_center">
-        <button class="btn_control_panel btn_delete_control_panel">
-          <a href="{% url 'repair:delete_service_center' service_center.id %}">
+      Add service center
+    </a>
+    {% endif %}
+    <!---->
+    {% if service_centers %}
+    <ul class="service-center-list">
+      {% for service_center in service_centers %}
+      <li class="service-center-list-item">
+        <p class="service-center-list-item-text">
+          Address: <span>{{ service_center.address }}</span>
+        </p>
+        <p class="service-center-list-item-text">
+          Phone number: <span>{{ service_center.phone_number }}</span>
+        </p>
+        <p class="service-center-list-item-text">
+          Work time: <span>{{ service_center.work_time }}</span>
+        </p>
+        {% if user.is_authenticated and user.is_staff %}
+        <div class="control-panel control-panel-service-center">
+          <a
+            class="btn-control-panel btn-delete-control-panel"
+            href="{% url 'repair:delete_service_center' service_center.id %}"
+          >
             Delete service center
           </a>
-        </button>
-        <button class="btn_control_panel btn_edit_control_panel">
-          <a href="{% url 'repair:edit_service_center' service_center.id %}">
+          <a
+            class="btn-control-panel btn-edit-control-panel"
+            href="{% url 'repair:edit_service_center' service_center.id %}"
+          >
             Edit service center
           </a>
-        </button>
-      </div>
-      {% endif %}
-    </li>
-    {% endfor %}
-  </ul>
-  {% else %}
-  <p>No service centers</p>
-  {% endif %}
+        </div>
+        {% endif %}
+      </li>
+      {% endfor %}
+    </ul>
+    {% else %}
+    <p>No service centers</p>
+    {% endif %}
+  </div>
 </div>
-<!-- -->
 {% endblock content %}

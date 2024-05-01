@@ -4,179 +4,202 @@
   --btn-color: #222222;
 
   --btn-bg-add: #c7c8cc;
-  --btn-bg-add-hover: #434242;
+  --btn-bg-add-hover: #f6d776;
 
   --btn-bg-control: #ffffff;
   --btn-bg-control-edit-hover: #7d9d9c;
   --btn-bg-control-remove-hover: #a25b5b;
+
+  --color-service-link: #f7f1e5;
+  --color-hover-service-link: #c6a969;
 }
 
-.make_order,
-.services,
-.service_center {
-  padding: 30px;
-  width: 100%;
-}
-
-.make_order {
-  padding: 0;
-  background: no-repeat url("../image/laptop-repair-services.jpg");
-  background-size: cover;
-  width: 100%;
-  height: 900px;
+.home-page {
   display: flex;
-  justify-content: space-between;
-  align-items: center;
-  flex-direction: row;
+  justify-content: center;
+  flex-direction: column;
 }
 
-.make_order_left {
-  width: 40%;
-}
-
-.make_order_right {
-  background: #222222;
-  filter: opacity(0.96);
-  width: 60%;
-  height: 100%;
+.home-page-element {
+  padding: 20px;
   display: flex;
   justify-content: center;
   align-items: center;
   flex-direction: column;
-  box-shadow: -80px 0 40px 0 #222;
 }
 
-.make_order_right > button {
+.home-page-element > ul {
+  margin-top: 30px;
+}
+
+.make-order > .btn {
+  padding: 20px 40px;
+  background-color: var(--btn-bg-order);
+  border: 3px solid var(--btn-bg-order-hover);
   border-radius: 10px;
-  background: var(--btn-bg-order);
-  border: none;
-  padding: 25px 0;
-  transition: background 0.2s ease-in;
-}
-
-.make_order_right > button > a {
-  font-size: 25px;
-  padding: 25px;
+  font-size: var(--main-font-size);
   font-weight: 900;
   color: var(--btn-color);
+  transition: var(--btn-transition);
 }
 
-.make_order_right > button:hover,
-.make_order_right > button:focus {
-  background: var(--btn-bg-order-hover);
+.service-list {
+  min-width: 300px;
 }
 
-.make_order_right > h1 {
-  color: #f2efe5;
-  margin-top: -200px;
-  padding: 100px 10px;
-}
-
-.title {
-  font-size: 40px;
-}
-
-.services {
-  font-size: var(--main-font-size);
-}
-
-.btn_add {
-  background: var(--btn-bg-add);
-  border-radius: 10px;
-  margin: 15px;
-  font-weight: 700;
-  padding: 10px 0;
-  font-size: var(--main-font-size);
-  transition: background 0.2s ease-in, box-shadow 0.3s ease-in-out;
-
-  border: 3px solid var(--btn-bg-add-hover);
-}
-
-.btn_add_link {
-  color: #222;
-  padding: 10px 100px;
-  transition: color 0.05s ease;
-}
-
-.btn_add:hover,
-.btn_add:focus {
-  background: var(--btn-bg-add-hover);
-  box-shadow: 0 0 10px var(--btn-bg-add-hover);
-}
-
-.btn_add_link:hover,
-.btn_add_link:focus {
-  color: #ededed;
-}
-
-.service_list {
-  min-width: 350px;
-}
-
-.service_item {
+.service-item {
   display: flex;
   justify-content: space-between;
-  align-items: center;
-  padding: 20px;
+  flex-direction: row;
+  margin: 10px 0;
 }
 
-.service_name {
-  color: #0e8388;
+.service-name {
+  color: var(--color-service-link);
+  font-size: var(--main-font-size);
+  transition: var(--btn-transition);
+  font-weight: 600;
+}
+
+.service-price {
+  color: #ecf2ff;
+  font-weight: 900;
+}
+
+.btn-add {
+  padding: 10px 40px;
+  background-color: var(--btn-bg-add);
+  font-size: var(--main-font-size);
+  border: 2px solid var(--btn-bg-add-hover);
+  color: var(--btn-color);
+  font-weight: 600;
+  border-radius: 10px;
+  transition: var(--btn-transition);
+}
+
+.service-center-list-item {
+  padding: 10px;
+}
+
+.service-center-list-item-text {
+  color: var(--color-service-link);
+  font-size: var(--main-font-size);
+}
+
+.btn-control-panel {
+  background-color: var(--btn-bg-control);
+  color: var(--btn-color);
+  transition: var(--btn-transition);
   font-weight: 500;
 }
 
-.service_price {
-  font-weight: 800;
-  color: #40513b;
+.btn-edit-control-panel {
+  border-color: var(--btn-bg-control-edit-hover);
 }
 
-.service_center_list_item {
-  padding: 10px;
-  font-size: 20px;
+.btn-delete-control-panel {
+  border-color: var(--btn-bg-control-remove-hover);
 }
 
-.btn_control_panel {
-  padding: 8px;
-  border-radius: 6px;
-  border: 1px solid #222;
-  background: var(--btn-bg-control);
-  transition: background 0.3s ease;
-}
-
-.control_panel > button > a {
-  font-size: 15px;
-  font-weight: 600;
-  color: #222;
-}
-
-.btn_delete_control_panel:hover,
-.btn_delete_control_panel:focus {
-  background: var(--btn-bg-control-remove-hover);
-}
-
-.btn_edit_control_panel:hover,
-.btn_edit_control_panel:focus {
-  background: var(--btn-bg-control-edit-hover);
-}
-
-.service_detail {
-  font-size: var(--main-font-size);
-  padding: 20px;
-}
-
-.control_service {
+.service-detai {
   display: flex;
-  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
 }
 
-.control_service > button {
+.service-info {
+  width: 100%;
+}
+
+.service-info-name,
+.service-info-description,
+.service-info-price {
+  text-align: center;
+  color: var(--color-service-link);
+  font-size: var(--main-font-size);
+  padding: 10px;
+}
+
+.service-info-name {
+  font-size: 22px;
+  font-weight: 800;
+  letter-spacing: 1.2px;
+}
+
+.service-info-description {
+  overflow-wrap: break-word;
+  word-break: break-all;
+}
+
+.service-info-price {
+  font-size: 20px;
+  font-weight: 600;
+}
+
+.delete-element {
+  color: var(--text-color);
+}
+
+.order-item {
+  padding: 5px;
+}
+
+.order-link {
+  color: var(--text-color);
+  transition: var(--btn-transition);
+  font-size: var(--main-font-size);
+}
+
+.order-detail-text {
+  color: var(--text-color);
+  font-size: var(--main-font-size);
+  padding: 3px;
+}
+
+.create-account {
+  text-align: center;
+  margin-top: 20px;
+  font-size: var(--main-font-size);
+  color: var(--text-color);
+}
+
+.create-account > * {
   margin: 10px;
 }
 
-.order_detail {
-  margin-top: 10px;
-}
+@media only screen and (min-width: 768px) {
+  .make-order > .btn:hover,
+  .make-order > .btn:focus {
+    background-color: var(--btn-bg-order-hover);
+    box-shadow: 0 0 10px var(--btn-bg-order-hover);
+  }
 
-.order_detail_text {
-  font-size: var(--main-font-size);
+  .btn-add:hover,
+  .btn-add:focus {
+    background-color: var(--btn-bg-add-hover);
+    box-shadow: 0 0 10px var(--btn-bg-add-hover);
+  }
+
+  .service-name:hover,
+  .service-name:focus {
+    color: var(--color-hover-service-link);
+  }
+
+  .btn-edit-control-panel:hover,
+  .btn-edit-control-panel:focus {
+    background-color: var(--btn-bg-control-edit-hover);
+    box-shadow: 0 0 5px var(--btn-bg-control-edit-hover);
+  }
+
+  .btn-delete-control-panel:hover,
+  .btn-delete-control-panel:focus {
+    background-color: var(--btn-bg-control-remove-hover);
+    box-shadow: 0 0 5px var(--btn-bg-control-remove-hover);
+  }
+
+  .order-link:hover,
+  .order-link:focus {
+    color: var(--color-hover-service-link);
+  }
 }

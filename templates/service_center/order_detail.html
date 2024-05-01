@@ -3,19 +3,19 @@
 {% block title %}Order for {{ order.device }}{% endblock title %}
 <!---->
 {% block content %}
-<div class="order_detail">
+<div class="order-detail">
   <h1 class="title">Order № {{ order.id }}</h1>
   {% if error_message %}
-  <p class="error_message">{{ error_message }}</p>
+  <p class="error-message">{{ error_message }}</p>
   {% endif %}
-  <p class="order_detail_text">User: {{ order.user }}</p>
-  <p class="order_detail_text">Device: {{ order.device }}</p>
-  <p class="order_detail_text">Service center: {{ order.service_center }}</p>
-  <p class="order_detail_text">
+  <p class="order-detail-text">User: {{ order.user }}</p>
+  <p class="order-detail-text">Device: {{ order.device }}</p>
+  <p class="order-detail-text">Service center: {{ order.service_center }}</p>
+  <p class="order-detail-text">
     Created at {{ order.created_at|date:"Y-m-d H:i:s" }}
   </p>
-  <p class="order_detail_text">Status: {{ order.status }}</p>
-  <p class="order_detail_text">
+  <p class="order-detail-text">Status: {{ order.status }}</p>
+  <p class="order-detail-text">
     Services:
     <!---->
     {% for service in order.services.all %}
@@ -28,7 +28,7 @@
     <!---->
     {% endfor %}
   </p>
-  <form method="post" class="form status_form">
+  <form method="post" class="form status-form">
     {% csrf_token %}
     <select name="status">
       <option value="{{ order.StatusChoice.PENDING }}">Pending</option>

@@ -1,6 +1,7 @@
+from django.http import HttpResponse, HttpResponseBadRequest
 from django.shortcuts import render, redirect, get_object_or_404
 from .models import Service, Device, ServiceCenter, RepairOrder
-from .forms import DeviceForm, ServiceForm, ServiceCenterForm, UserProfileForm, StatusForm
+from .forms import DeviceForm, ServiceForm, ServiceCenterForm, UserProfileForm, StatusForm, OrderServiceForm
 from django.contrib.auth.decorators import login_required
 from django.contrib.admin.views.decorators import staff_member_required
 
@@ -134,37 +135,43 @@ def profile(request):
 
 @login_required
 def order_service(request):
+    error_message = None
+    devices = Device.objects.filter(user=request.user)
+    service_centers = ServiceCenter.objects.all()
+    services = Service.objects.all()
+    
     if request.method == 'POST':
         device_id = request.POST.get('device')
         service_center_id = request.POST.get('choice')
         services_ids = request.POST.getlist('repair_service')
         
-        device = Device.objects.get(id=device_id)
-        service_center = ServiceCenter.objects.get(id=service_center_id)
-        services = Service.objects.filter(id__in=services_ids)
+        if not device_id or not service_center_id or not services_ids:
+            error_message = "Please fill out all required fields"
+        else:
+            device = Device.objects.get(id=device_id)
+            service_center = ServiceCenter.objects.get(id=service_center_id)
+            services = Service.objects.filter(id__in=services_ids)
 
-        repair_order = RepairOrder.objects.create(
-            user=request.user,
-            device=device,
-            service_center=service_center
-        )
+            repair_order = RepairOrder.objects.create(
+                user=request.user,
+                device=device,
+                service_center=service_center
+            )
 
-        repair_order.services.set(services)
-        
-        return redirect('repair:profile')
+            repair_order.services.set(services)
+            
+            return redirect('repair:profile')
 
-    else:
-        devices = Device.objects.filter(user=request.user)
-        service_centers = ServiceCenter.objects.all()
-        services = Service.objects.all()
-        
-        context = {
-            'devices': devices,
-            'service_centers': service_centers,
-            'services': services
-        }
+    context = {
+        'devices': devices,
+        'service_centers': service_centers,
+        'services': services,
+        'error_message': error_message
+    }
 
-        return render(request, 'repair_service/order_service.html', context)
+    return render(request, 'repair_service/order_service.html', context)
+
+
 
 
 @login_required
@@ -204,8 +211,11 @@ def edit_device(request, device_id):
                 return redirect('repair:profile')
         else:
             form = DeviceForm(instance=device)
+    else:
+        return redirect('repair:profile')
 
     return render(request, 'device/edit_device.html', {'form': form})
+
 
 
 @login_required

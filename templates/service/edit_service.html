@@ -3,11 +3,13 @@
 {% block title %}Edit service{% endblock title %}
 <!---->
 {% block content %}
-<h1 class="title service_title">Edit service</h1>
-<form method="post" class="form service_form">
-  {% csrf_token %}
-  <!---->
-  {{ form.as_p }}
-  <button type="submit">Save changes</button>
-</form>
+<div class="edit-element edit-service">
+  <h1 class="title service-title">Edit service</h1>
+  <form method="post" class="form service-form">
+    {% csrf_token %}
+    <!---->
+    {{ form.as_p }}
+    <button type="submit">Save changes</button>
+  </form>
+</div>
 {% endblock content %}

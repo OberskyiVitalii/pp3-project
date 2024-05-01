@@ -7,45 +7,63 @@
 }
 
 :root {
-  --color-bg: #eeedeb;
-  --color-bg-header: #dddddd;
-  --main-font-size: 20px;
-  --list-font-size: 20px;
+  --body-bg: #414141;
+  --header-bg: #313131;
+
+  --main-font-size: 18px;
+
+  --title-color: #f7f7f7;
+  --text-color: #eeeeee;
+
+  --btn-transition: all 0.3s ease;
 }
 
-body {
+body,
+html {
   font-family: "Roboto", sans-serif;
-  background: var(--color-bg);
-  width: 100vw;
-  overflow-x: hidden;
+  margin: 0;
+  padding: 0;
+  background-color: var(--body-bg);
 }
 
-textarea {
-  font-family: "Roboto", sans-serif;
-  font-weight: 400;
-}
-
-li {
-  list-style-type: none;
+main {
+  width: 100%;
+  display: flex;
+  justify-content: center;
 }
 
 a {
   text-decoration: none;
 }
 
-button,
-button[type="submit"] {
-  cursor: pointer;
+li {
+  list-style-type: none;
 }
 
+main {
+  padding: 10px 30px;
+}
+
+.title {
+  color: var(--title-color);
+  padding: 10px;
+  text-align: center;
+}
+
+.control-panel {
+  margin-top: 10px;
+  gap: 10px;
+  display: flex;
+}
+
+.btn-control-panel {
+  padding: 10px;
+  border: 2px solid;
+  border-radius: 10px;
+  background: #fff;
+}
+
+button,
 input[type="submit"] {
   cursor: pointer;
-}
-
-main,
-main > div {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
 }

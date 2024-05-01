@@ -5,56 +5,67 @@
 {% block content %}
 <!---->
 {% if devices %}
-<form method="post" class="form service_form device_form">
-  {% csrf_token %}
-  <div class="service_order_div service_order_device">
-    <h1>Choose your device</h1>
-    <select name="device">
-      {% for device in devices %}
-      <option value="{{ device.id }}">
-        {{ device.brand }} {{ device.model }}
-      </option>
+<div class="order-service">
+  <form method="post" class="form service-form device-form">
+    {% csrf_token %}
+    <div class="service-order-div service-order-device">
+      <h1 class="title">Choose your device</h1>
+      <select name="device" required>
+        <option value="" disabled selected>Select device</option>
+        {% for device in devices %}
+        <option value="{{ device.id }}">
+          {{ device.brand }} {{ device.model }}
+        </option>
+        {% endfor %}
+      </select>
+    </div>
+    <div class="service-order-div service-order-service-center">
+      <h1 class="title">Choose service center</h1>
+      {% if service_centers %}
+      <!---->
+      {% for service_center in service_centers %}
+      <label>
+        <input
+          type="radio"
+          name="choice"
+          value="{{ service_center.id }}"
+          required
+        />
+        {{ service_center.address }}
+      </label>
       {% endfor %}
-    </select>
-  </div>
-  <div class="service_order_div service_order_service_center">
-    <h1>Choose service center</h1>
-    {% if service_centers %}
-    <!---->
-    {% for service_center in service_centers %}
-    <label>
-      <input type="radio" name="choice" value="{{ service_center.id }}" />
-      {{ service_center.address }}
-    </label>
-    {% endfor %}
-    <!---->
-    {% endif %}
-  </div>
-  <div class="service_order_div service_order_service">
-    <h1>Choose repair service</h1>
-    {% if services %}
-    <ul>
-      {% for service in services %}
-      <li>
-        <label>
-          <input
-            type="checkbox"
-            name="repair_service"
-            value="{{ service.id }}"
-          />
-          {{ service.name }}
-        </label>
-      </li>
-      {% endfor %}
-    </ul>
-    {% endif %}
-  </div>
-  <button type="submit" name="action" value="complete_order">
-    Complete Order
-  </button>
-</form>
-{% else %}
-<p>You have no registered devices.</p>
-{% endif %}
-<!---->
+      <!---->
+      {% endif %}
+    </div>
+    <div class="service-order-div service-order-service">
+      <h1 class="title">Choose repair service</h1>
+      {% if services %}
+      <ul>
+        {% for service in services %}
+        <li>
+          <label>
+            <input
+              type="checkbox"
+              name="repair_service"
+              value="{{ service.id }}"
+            />
+            {{ service.name }}
+          </label>
+        </li>
+        {% endfor %}
+      </ul>
+      {% endif %}
+    </div>
+    <button type="submit" name="action" value="complete_order">
+      Complete Order
+    </button>
+  </form>
+  {% if request.method == 'POST' and error_message %}
+  <p>{{ error_message }}</p>
+  {% endif %}
+  <!---->
+  {% else %}
+  <p>You have no registered devices.</p>
+  {% endif %}
+</div>
 {% endblock content %}

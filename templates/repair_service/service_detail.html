@@ -3,23 +3,31 @@
 {% block title %}Repair service | {{ service.name }}{% endblock title %}
 <!---->
 {% block content %}
-<div class="service_detail">
-  {% if error_message %}
-  <p class="error_message">{{ error_message }}</p>
-  {% endif %}
-  <!---->
-  <p class="service_detail_name">{{service.name}}</p>
-  <p class="service_detail_description">{{service.description}}</p>
-  <p class="service_detail_price">{{service.price}}$</p>
-</div>
-<div class="control_panel control_service">
+<div class="service-detai">
+  <div class="service-info">
+    {% if error_message %}
+    <p class="error-message">{{ error_message }}</p>
+    {% endif %}
+    <!---->
+    <p class="service-info-name">{{service.name}}</p>
+    <p class="service-info-description">{{service.description}}</p>
+    <p class="service-info-price">{{service.price}}$</p>
+  </div>
   {% if user.is_authenticated and user.is_staff %}
-  <button class="btn_control_panel btn_delete_control_panel">
-    <a href="{% url 'repair:delete_service' service.id %}">Delete service</a>
-  </button>
-  <button class="btn_control_panel btn_edit_control_panel">
-    <a href="{% url 'repair:edit_service' service.id %}">Edit service</a>
-  </button>
+  <div class="control-panel control-service">
+    <a
+      class="btn-control-panel btn-delete-control-panel"
+      href="{% url 'repair:delete_service' service.id %}"
+    >
+      Delete service
+    </a>
+    <a
+      class="btn-control-panel btn-edit-control-panel"
+      href="{% url 'repair:edit_service' service.id %}"
+    >
+      Edit service
+    </a>
+  </div>
   {% endif %}
 </div>
 {% endblock content %}

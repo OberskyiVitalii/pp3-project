@@ -3,11 +3,13 @@
 {% block title %}Delete device{% endblock title %}
 <!---->
 {% block content %}
-<h1 class="title device_title">
-  Are you sure you want to delete "{{ device.brand }} {{ device.model }}"?
-</h1>
-<form method="post" class="form delete_form device_form delete_device_form">
-  {% csrf_token %}
-  <button type="submit">Yes, delete</button>
-</form>
+<div class="delete-element delete-device">
+  <h1 class="title device-title">
+    Are you sure you want to delete "{{ device.brand }} {{ device.model }}"?
+  </h1>
+  <form method="post" class="form delete-form device-form delete-device-form">
+    {% csrf_token %}
+    <button type="submit">Yes, delete</button>
+  </form>
+</div>
 {% endblock content %}

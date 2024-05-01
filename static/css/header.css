@@ -1,104 +1,156 @@
 :root {
-  --nav-link-color: #205375;
+  --nav-link-color: #eeeeee;
+
+  --btn-login-bg: #c7c8cc;
+  --btn-signup-bg: #e36414;
+  --btn-logout-bg: #ff6868;
 }
 
 header {
+  background-color: var(--header-bg);
   position: sticky;
   top: 0;
   display: flex;
-  flex-direction: row;
   justify-content: space-between;
   align-items: center;
-  padding: 10px 80px;
-  height: 60px;
-  background: var(--color-bg-header);
-  z-index: 99;
+  padding: 10px 30px;
+  min-height: 50px;
 }
 
-header > div {
+.logo-link {
   display: flex;
   align-items: center;
+  gap: 10px;
+  font-size: 22px;
+  font-weight: 800;
+  color: var(--nav-link-color);
+  transition: var(--btn-transition);
 }
 
-header.dark {
-  background: var(--color-bg);
+.logo-img {
+  width: 32px;
 }
 
-nav {
+.nav-menu {
   display: flex;
-}
-
-nav > li {
-  margin: 0 20px;
-}
-
-.nav_link {
-  font-size: 18px;
-  font-weight: 700;
-  color: #212121;
-  position: relative;
-  transition: all 0.2s ease;
-}
-
-.nav_link::after {
-  position: absolute;
-  content: "";
-  width: 100%;
-  height: 3px;
-  bottom: -3px;
-  left: 0;
-  background: var(--nav-link-color);
-  opacity: 0;
-  transition: opacity 0.3s ease-in-out;
-}
-
-.nav_link:hover::after {
-  opacity: 1;
-}
-
-.nav_link:hover {
+  align-items: center;
+  gap: 30px;
+  font-size: var(--main-font-size);
   color: var(--nav-link-color);
 }
 
-.auth_panel > * {
-  margin: 0 10px;
+.nav-item > span > a {
+  color: #f1e4c3;
+  font-weight: 700;
+  transition: all 0.2s ease;
 }
 
-.auth_btn {
-  border-radius: 6px;
-  width: 130px;
-  padding: 8px;
-  border: 2px solid #222;
-  font-size: 18px;
-  font-weight: 600;
-  color: #222;
+.hamburger {
+  display: none;
 }
 
-.auth_btn > a {
-  color: #222;
+.bar {
+  display: block;
+  width: 25px;
+  height: 3px;
+  margin: 5px auto;
+  -webkit-transition: all 0.3s ease-in-out;
+  transition: all 0.3s ease-in-out;
+  border-radius: 3px;
+  background-color: var(--nav-link-color);
 }
 
-.create_account {
-  padding: 20px;
-}
-
-.create_account > p {
-  font-size: 18px;
-}
-
-.create_account > button {
-  padding: 10px;
-  font-weight: 600;
+.nav-link {
   font-size: var(--main-font-size);
-  border-radius: 10px;
-  border: 2px solid #222;
-  margin-top: 10px;
+  font-weight: 500;
+  padding: 10px;
+  color: var(--nav-link-color);
+  transition: color 0.2s ease-in;
 }
 
-.create_account > button > a {
+.auth-panel {
+  display: flex;
+  gap: 10px;
+}
+
+.auth-btn {
+  padding: 4px 20px;
+  background: red;
+  font-size: var(--main-font-size);
+  font-weight: 600;
+  color: var(--text-color);
+  border-radius: 7px;
+  border: none;
+}
+
+.btn-login {
+  background-color: var(--btn-login-bg);
   color: #222;
 }
 
-.auth_panel > form > li > span {
-  font-size: 18px;
+.btn-signup {
+  background-color: var(--btn-signup-bg);
+}
+
+.btn-logout {
+  background-color: var(--btn-logout-bg);
+}
+
+@media only screen and (min-width: 768px) {
+  .logo-link:hover,
+  .logo-link:focus {
+    color: #f3ca52;
+  }
+  .nav-link:hover,
+  .nav-link:focus {
+    color: #f3ca52;
+  }
+
+  .nav-item > span > a:hover,
+  .nav-item > span > a:focus {
+    color: #c6a969;
+  }
+}
+
+@media only screen and (max-width: 1250px) {
+  .nav-menu {
+    position: fixed;
+    right: -100%;
+    top: -100%;
+    flex-direction: column;
+    background-color: var(--header-bg);
+    width: 100%;
+    border-radius: 0 0 10px 10px;
+    text-align: center;
+    transition: 0.3s;
+    box-shadow: 0 10px 27px rgba(0, 0, 0, 0.05);
+    gap: 0;
+  }
+
+  .nav-menu.active {
+    left: 0;
+    top: 50px;
+    padding-bottom: 20px;
+  }
+
+  .nav-item {
+    margin: 10px 0;
+  }
+
+  .hamburger {
+    display: block;
+    cursor: pointer;
+  }
+
+  .hamburger.active .bar:nth-child(2) {
+    opacity: 0;
+  }
+
+  .hamburger.active .bar:nth-child(1) {
+    transform: translateY(8px) rotate(45deg);
+  }
+
+  .hamburger.active .bar:nth-child(3) {
+    transform: translateY(-8px) rotate(-45deg);
+  }
 }

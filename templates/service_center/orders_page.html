@@ -3,11 +3,19 @@
 {% block title %}Orders{% endblock title %}
 <!---->
 {% block content %}
-<h1 class="title">Orders page</h1>
-{% if orders %}
-<ul>
-  {% for order in orders %}
-  <li><a href="{% url 'repair:order_detail' order.id %}">{{ order }}</a></li>
-  {% endfor %}
-</ul>
-{% endif %} {% endblock content %}
+<div class="order-page">
+  <h1 class="title">Orders page</h1>
+  {% if orders %}
+  <ul class="order-list">
+    {% for order in orders %}
+    <li class="order-item">
+      <a class="order-link" href="{% url 'repair:order_detail' order.id %}"
+        >{{ order }}</a
+      >
+    </li>
+    {% endfor %}
+  </ul>
+</div>
+{% endif %}
+<!---->
+{% endblock content %}
