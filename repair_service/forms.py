@@ -31,9 +31,3 @@ class StatusForm(forms.ModelForm):
     class Meta:
         model = RepairOrder
         fields = ['status']
-
-
-class OrderServiceForm(forms.Form):
-    device = forms.IntegerField()  # Adjust field type as necessary
-    choice = forms.IntegerField(required=True)
-    repair_service = forms.ModelMultipleChoiceField(queryset=Service.objects.all(), widget=forms.CheckboxSelectMultiple(), required=True)
